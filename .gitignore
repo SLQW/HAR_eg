@@ -49,4 +49,4 @@ Thumbs.db
 # PMM generated files #
 ######################
 /notebooks/*
-tmp/
+tmp*/
