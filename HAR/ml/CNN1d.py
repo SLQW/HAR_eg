@@ -46,15 +46,16 @@ class CNN(nn.Module):
         self.conv_layers = nn.ModuleList()
         n_features, n_timesteps = input_shape
         l_in = n_timesteps  # Tracking datashape
+        assert (len(filters) == len(kernels)), "Number of filters must match number of kernels."
         for i in range(len(filters)):
             if i == 0:
                 self.conv_layers.append(nn.Conv1d(n_features, filters[i], kernels[i]))
             else:
                 self.conv_layers.append(nn.Conv1d(filters[i - 1], filters[i], kernels[i]))
-            l_in = l_in - (kernels[i] - 1) - 1
+            l_in = int(np.floor((l_in - (kernels[i] - 1) - 1)/1 + 1))
         self.dropout = nn.Dropout(dropout)
         self.pool = nn.MaxPool1d(pool)
-        l_in = int(np.floor((l_in + 2 - 1 * (pool - 1) - 1) / pool + 1))
+        l_in = int(np.floor((l_in - 1 * (pool - 1) - 1) / pool + 1))
         self.dense_layers = nn.ModuleList()
         self.flatten_size = l_in * filters[-1]
         for i in range(len(dense)):
@@ -337,7 +338,7 @@ def run_experiment(output_dir, repeats=10, n_epochs=10, verbose=False,
     metrics = []
 
     for i in range(repeats):
-        print("Training for experiment {}".format(i+1))
+        print("Training for experiment {}".format(i + 1))
         _dir = os.path.join(output_dir, "exp_{}".format(i + 1))
         if not os.path.isdir(_dir):
             os.mkdir(_dir)
@@ -371,7 +372,10 @@ def run_experiment(output_dir, repeats=10, n_epochs=10, verbose=False,
         print("{}: {:8.3f}".format(key, avg_metrics[key]))
 
     return avg_metrics
+
+
 if __name__ == '__main__':
     import sys
+
     sys.path.append('../')
     _ = run_experiment('../../tmp', data_dir='../../data/UCI HAR Dataset', verbose=True, n_epochs=10)
