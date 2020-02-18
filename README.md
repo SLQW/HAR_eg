@@ -25,5 +25,6 @@ can be easily described by a set of metaparameters that are optimized to yield m
 * A multi-headed model or ensemble model can easily be developed as a subclass of the current implementation. 
 * For brevity (and running on a laptop cpu), experiments were run for 3 iterations. 
 This number could be increased if large variance across runs was noticed. 
+* A more effective data preprocessing pipeline could be implemented in [sklearn](https://scikit-learn.org/stable/modules/preprocessing.html).
 * Lastly, a greater variety of architectures should be explored (1D analogues to VGG, Inception, etc..)
  
