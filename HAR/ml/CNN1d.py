@@ -153,11 +153,13 @@ def test_loss(net, criterion, test_loader):
     """
     with torch.no_grad():
         loss = 0.
+        count = 0
         for i, data in enumerate(test_loader):
             inputs, labels = data
+            count += labels.size(0)
             outputs = net(inputs)
             loss += criterion(outputs, labels).item()
-        return loss / (i + 1)
+        return loss / count
 
 
 def training(output_dir, n_epochs=10, seed=None, verbose=False,
