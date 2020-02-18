@@ -49,5 +49,6 @@ Thumbs.db
 # PMM generated files #
 ######################
 /notebooks/*
+!/notebooks/coarse_optimization.ipynb
 !/notebooks/example_run.ipynb
 tmp*/
