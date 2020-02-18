@@ -1,6 +1,6 @@
 # Human Activity Recognition
 Following on from [this tutorial](https://machinelearningmastery.com/cnn-models-for-human-activity-recognition-time-series-classification/),
-this contains a 1-dimensional convolutional neural network implemented in PyTorch.
+this contains a 1-dimensional convolutional neural network implemented in PyTorch for the CPU.
 It is a first pass with limited optimiztion of hyperparameters or architecture exploration. 
 
 The package is organized with a split between data processing and model training. 
